@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
             val input = editor.text.toString()
             val output = this.compile(input);
 
-            if (output.isPresent) {
-                textView.text = output.get()
+            if (output != null) {
+                textView.text = output.toString()
             } else {
                 textView.text = "Something went wrong"
             }
@@ -41,15 +41,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun compile(input: String): Optional<String> {
+    private fun compile(input: String): Int? {
         val parserHandle = ParserHandle();
-        val tokenList = parserHandle.compile(input)
-
-        var output = tokenList
-            .stream()
-            .map { token -> token.getInfo() }
-            .reduce { initial, current -> initial + current }
-
-        return output
+        val result = parserHandle.compile(input)
+        return result
     }
 }

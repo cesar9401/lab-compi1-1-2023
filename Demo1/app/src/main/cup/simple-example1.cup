@@ -1,0 +1,23 @@
+package com.labcompi1.demo1.parser;
+
+class SimpleParser1;
+
+parser code {:
+
+    public SimpleParser1(SimpleLexer1 lexer) {
+        super(lexer);
+    }
+:}
+
+terminal Token INTEGER, PLUS, TIMES;
+non terminal Integer sum, prod;
+
+sum ::=
+            sum:suma PLUS prod:producto {: RESULT = suma + producto; :}
+            | prod:producto {: RESULT = producto; :}
+            ;
+
+prod ::=
+            prod:producto TIMES INTEGER:entero {: RESULT = producto * Integer.valueOf(entero.getValue()); :}
+            | INTEGER:entero {: RESULT = Integer.valueOf(entero.getValue()); :}
+            ;

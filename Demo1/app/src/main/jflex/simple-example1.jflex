@@ -1,5 +1,9 @@
 package com.labcompi1.demo1.parser;
 
+import static com.labcompi1.demo1.parser.SimpleParser1Sym.*;
+
+import java_cup.runtime.Symbol;
+
 %%
 
 %class SimpleLexer1
@@ -7,16 +11,21 @@ package com.labcompi1.demo1.parser;
 %line
 %column
 // %standalone
-%type Token
+%type java_cup.runtime.Symbol
+%cup
 
 %{
-    private Token token(String value, TokenType type, int line, int column) {
-        return new Token(value, type, line + 1, column + 1);
+    private Symbol token(int type, Object value) {
+        return new Symbol(type, new Token(value.toString(), type, yyline + 1, yycolumn + 1));
+    }
+
+    private Symbol token(int type) {
+        return new Symbol(type, new Token(null, type, yyline + 1, yycolumn + 1));
     }
 %}
 
 %eofval{
-    return token(null, TokenType.EOF, yyline, yycolumn);
+    return token(EOF);
 %eofval}
 %eofclose
 
@@ -25,25 +34,24 @@ WhiteSpace = {LineTerminator}|[ \t\f]
 
 integer = 0|[1-9][0-9]*
 decimal = {integer}\.\d+
-id = [_a-zA-Z][a-zA-Z0-9]*
+// id = [_a-zA-Z][a-zA-Z0-9]*
 
 %%
 
 <YYINITIAL> {
-
-    {id}
+    "+"
     {
-        return token(yytext(), TokenType.ID, yyline, yycolumn);
+        return token(PLUS, yytext());
     }
 
-    {decimal}
+    "*"
     {
-        return token(yytext(), TokenType.DECIMAL, yyline, yycolumn);
+        return token(TIMES, yytext());
     }
 
     {integer}
     {
-        return token(yytext(), TokenType.INTEGER, yyline, yycolumn);
+        return token(INTEGER, yytext());
     }
 
     {WhiteSpace}

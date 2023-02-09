@@ -4,9 +4,13 @@
 
 package com.labcompi1.demo1.parser;
 
+import static com.labcompi1.demo1.parser.SimpleParser1Sym.*;
+
+import java_cup.runtime.Symbol;
+
 
 @SuppressWarnings("fallthrough")
-class SimpleLexer1 {
+class SimpleLexer1 implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -33,13 +37,7 @@ class SimpleLexer1 {
   private static final int [] ZZ_CMAP_TOP = zzUnpackcmap_top();
 
   private static final String ZZ_CMAP_TOP_PACKED_0 =
-    "\1\0\5\u0100\1\u0200\1\u0300\1\u0100\5\u0400\1\u0500\1\u0600"+
-    "\1\u0700\6\u0100\1\u0800\1\u0900\1\u0a00\1\u0b00\1\u0c00\1\u0d00"+
-    "\211\u0100\1\u0600\1\u0100\1\u0e00\1\u0f00\1\u1000\1\u1100\123\u0100"+
-    "\1\u0900\4\u0100\1\u1200\10\u0100\1\u1300\2\u0100\1\u1400\1\u1500"+
-    "\1\u1100\1\u0100\1\u0500\1\u0100\1\u1600\1\u1300\1\u0800\3\u0100"+
-    "\1\u1000\1\u1700\114\u0100\1\u1800\1\u1000\153\u0100\1\u1900\11\u0100"+
-    "\1\u1a00\1\u1100\6\u0100\1\u1000\u0f16\u0100";
+    "\1\0\u10ff\u0100";
 
   private static int [] zzUnpackcmap_top() {
     int [] result = new int[4352];
@@ -68,21 +66,10 @@ class SimpleLexer1 {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\1\0\1\1\1\3\22\0\1\1"+
-    "\15\0\1\4\1\0\1\5\11\6\7\0\32\7\4\0"+
-    "\1\10\1\0\32\7\u01e5\0\12\11\206\0\12\11\306\0"+
-    "\12\11\234\0\12\11\166\0\12\11\140\0\12\11\166\0"+
-    "\12\11\106\0\12\11\u0116\0\12\11\106\0\12\11\u0146\0"+
-    "\12\11\46\0\12\11\u012c\0\12\11\200\0\12\11\246\0"+
-    "\12\11\6\0\12\11\266\0\12\11\126\0\12\11\206\0"+
-    "\12\11\6\0\12\11\u0176\0\12\11\46\0\12\11\306\0"+
-    "\12\11\26\0\12\11\126\0\12\11\u0196\0\12\11\246\0"+
-    "\12\11\206\0\12\11\u012c\0\12\11\200\0\12\11\74\0"+
-    "\12\11\220\0\12\11\166\0\12\11\146\0\12\11\206\0"+
-    "\12\11\106\0\12\11\266\0\12\11\u0164\0\62\11\100\0"+
-    "\12\11\266\0";
+    "\11\0\1\4\1\5\4\0\1\6\11\7\u01c6\0";
 
   private static int [] zzUnpackcmap_blocks() {
-    int [] result = new int[6912];
+    int [] result = new int[512];
     int offset = 0;
     offset = zzUnpackcmap_blocks(ZZ_CMAP_BLOCKS_PACKED_0, offset, result);
     return result;
@@ -106,10 +93,10 @@ class SimpleLexer1 {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\2\2\2\3\1\4\1\0\1\5";
+    "\1\0\1\1\2\2\1\3\1\4\2\5";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[9];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -134,11 +121,10 @@ class SimpleLexer1 {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\12\0\12\0\24\0\36\0\50\0\62\0\74"+
-    "\0\74";
+    "\0\0\0\10\0\10\0\20\0\10\0\10\0\10\0\30";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[9];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -161,12 +147,11 @@ class SimpleLexer1 {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\2\3\1\4\1\2\1\5\1\6\2\7\1\2"+
-    "\14\0\1\3\13\0\1\10\11\0\1\10\2\6\10\0"+
-    "\3\7\7\0\2\11\2\0\1\11";
+    "\1\2\2\3\1\4\1\5\1\6\1\7\1\10\12\0"+
+    "\1\3\13\0\2\10";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[70];
+    int [] result = new int[32];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -209,10 +194,10 @@ class SimpleLexer1 {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\4\1\1\0\1\1";
+    "\1\0\2\11\1\1\3\11\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[9];
+    int [] result = new int[8];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -289,8 +274,12 @@ class SimpleLexer1 {
   private boolean zzEOFDone;
 
   /* user code: */
-    private Token token(String value, TokenType type, int line, int column) {
-        return new Token(value, type, line + 1, column + 1);
+    private Symbol token(int type, Object value) {
+        return new Symbol(type, new Token(value.toString(), type, yyline + 1, yycolumn + 1));
+    }
+
+    private Symbol token(int type) {
+        return new Symbol(type, new Token(null, type, yyline + 1, yycolumn + 1));
     }
 
 
@@ -575,7 +564,7 @@ class SimpleLexer1 {
    * @return the next token.
    * @exception java.io.IOException if any I/O-Error occurs.
    */
-  public Token yylex() throws java.io.IOException
+  @Override  public java_cup.runtime.Symbol next_token() throws java.io.IOException
   {
     int zzInput;
     int zzAction;
@@ -713,7 +702,7 @@ class SimpleLexer1 {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
             zzDoEOF();
-          {     return token(null, TokenType.EOF, yyline, yycolumn);
+          {     return token(EOF);
  }
       }
       else {
@@ -729,17 +718,17 @@ class SimpleLexer1 {
           // fall through
           case 7: break;
           case 3:
-            { return token(yytext(), TokenType.INTEGER, yyline, yycolumn);
+            { return token(TIMES, yytext());
             }
           // fall through
           case 8: break;
           case 4:
-            { return token(yytext(), TokenType.ID, yyline, yycolumn);
+            { return token(PLUS, yytext());
             }
           // fall through
           case 9: break;
           case 5:
-            { return token(yytext(), TokenType.DECIMAL, yyline, yycolumn);
+            { return token(INTEGER, yytext());
             }
           // fall through
           case 10: break;
