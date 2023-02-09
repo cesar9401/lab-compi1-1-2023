@@ -1,3 +1,4 @@
+package com.labcompi1.demo1.parser;
 
 %%
 
@@ -5,12 +6,25 @@
 %unicode
 %line
 %column
-%standalone
+// %standalone
+%type Token
+
+%{
+    private Token token(String value, TokenType type, int line, int column) {
+        return new Token(value, type, line + 1, column + 1);
+    }
+%}
+
+%eofval{
+    return token(null, TokenType.EOF, yyline, yycolumn);
+%eofval}
+%eofclose
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator}|[ \t\f]
 
 integer = 0|[1-9][0-9]*
+decimal = {integer}\.\d+
 id = [_a-zA-Z][a-zA-Z0-9]*
 
 %%
@@ -19,12 +33,17 @@ id = [_a-zA-Z][a-zA-Z0-9]*
 
     {id}
     {
-        System.out.println("Identificador: " + yytext() + ", line: " + (yyline + 1) + ", col: " + (yycolumn + 1));
+        return token(yytext(), TokenType.ID, yyline, yycolumn);
+    }
+
+    {decimal}
+    {
+        return token(yytext(), TokenType.DECIMAL, yyline, yycolumn);
     }
 
     {integer}
     {
-        System.out.println("Entero: " + yytext() + ", line: " + (yyline + 1) + ", col: " + (yycolumn + 1));
+        return token(yytext(), TokenType.INTEGER, yyline, yycolumn);
     }
 
     {WhiteSpace}
