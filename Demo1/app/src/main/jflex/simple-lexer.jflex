@@ -2,21 +2,24 @@ package com.labcompi1.demo1.parser;
 
 %%
 
-%class SimpleLexer1
+%class SimpleLexer
 %unicode
 %line
 %column
-// %standalone
 %type Token
 
 %{
-    private Token token(String value, TokenType type, int line, int column) {
-        return new Token(value, type, line + 1, column + 1);
+    private Token token(Object value, TokenType type) {
+        return new Token(value.toString(), type, yyline + 1, yycolumn + 1);
+    }
+
+    private Token token(TokenType type) {
+        return new Token(null, type, yyline + 1, yycolumn + 1);
     }
 %}
 
 %eofval{
-    return token(null, TokenType.EOF, yyline, yycolumn);
+    return token(TokenType.EOF);
 %eofval}
 %eofclose
 
@@ -33,17 +36,17 @@ id = [_a-zA-Z][a-zA-Z0-9]*
 
     {id}
     {
-        return token(yytext(), TokenType.ID, yyline, yycolumn);
+        return token(yytext(), TokenType.ID);
     }
 
     {decimal}
     {
-        return token(yytext(), TokenType.DECIMAL, yyline, yycolumn);
+        return token(yytext(), TokenType.DECIMAL);
     }
 
     {integer}
     {
-        return token(yytext(), TokenType.INTEGER, yyline, yycolumn);
+        return token(yytext(), TokenType.INTEGER);
     }
 
     {WhiteSpace}

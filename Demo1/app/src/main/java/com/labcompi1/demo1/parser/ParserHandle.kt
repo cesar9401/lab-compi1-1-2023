@@ -7,7 +7,7 @@ class ParserHandle {
     fun compile (input: String): List<Token> {
         val tokenList = ArrayList<Token>()
 
-        val lexer = SimpleLexer1(StringReader(input));
+        val lexer = SimpleLexer(StringReader(input));
         var token = lexer.yylex()
         while(token != null && token.type != TokenType.EOF) {
             tokenList.add(token)
