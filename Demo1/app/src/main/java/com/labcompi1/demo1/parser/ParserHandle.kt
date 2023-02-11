@@ -4,17 +4,10 @@ import java.io.StringReader
 
 class ParserHandle {
 
-    fun compile (input: String): List<Token> {
-        val tokenList = ArrayList<Token>()
-
-        val lexer = SimpleLexer(StringReader(input));
-        var token = lexer.yylex()
-        while(token != null && token.type != TokenType.EOF) {
-            tokenList.add(token)
-            token.printInfo()
-            token = lexer.yylex()
-        }
-
-        return tokenList
+    fun compile (input: String): Int? {
+        val lexer = SimpleLexer(StringReader(input))
+        val parser = SimpleParser(lexer);
+        val result: Int? = parser.parse().value as Int?;
+        return result;
     }
 }

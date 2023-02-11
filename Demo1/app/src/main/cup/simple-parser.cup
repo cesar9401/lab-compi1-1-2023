@@ -1,0 +1,47 @@
+package com.labcompi1.demo1.parser;
+
+class SimpleParser;
+
+parser code {:
+
+    public SimpleParser(SimpleLexer lexer) {
+        super(lexer);
+    }
+:}
+
+/*
+    a -> a + b
+    a -> a - b
+    a -> b
+
+    b -> b * c
+    b -> b / c
+    b -> c
+
+    c -> INTEGER
+*/
+
+terminal Token PLUS, MINUS, TIMES, DIVIDE, POW, INTEGER;
+non terminal Integer a, b, c;
+
+a ::=
+        a:n1 PLUS b:n2 {: RESULT = n1 + n2; :}
+        | a:variable1 MINUS b:variable2 {: RESULT = variable1 - variable2; :}
+        | b:numerito {: RESULT = numerito; :}
+        ;
+
+b ::=
+        b:n1 TIMES c:n2 {: RESULT = n1 * n2; :}
+        | b:n1 DIVIDE c:n2
+            {:
+                if (n2 == 0) {
+                    throw new IllegalArgumentException("Dividiendo por cero");
+                }
+                RESULT = n1 / n2;
+            :}
+        | c:n1 {: RESULT = n1; :}
+        ;
+
+c ::=
+        INTEGER:n1 {: RESULT = Integer.valueOf(n1.getValue()); :}
+        ;
