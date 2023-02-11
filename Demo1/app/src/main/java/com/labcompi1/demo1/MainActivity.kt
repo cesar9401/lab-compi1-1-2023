@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.labcompi1.demo1.parser.ParserHandle
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 

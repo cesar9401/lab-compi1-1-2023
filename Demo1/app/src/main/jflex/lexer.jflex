@@ -40,12 +40,43 @@ integer = 0|[1-9][0-9]*
 <YYINITIAL> {
     "+"
     {
-        return token(PLUS, yytext());
+        return token(PLUS);
+    }
+
+    "-"
+    {
+        return token(MINUS);
     }
 
     "*"
     {
-        return token(TIMES, yytext());
+        return token(TIMES);
+    }
+
+    "/"
+    {
+        return token(DIVIDE);
+    }
+
+    "^"
+    {
+        return token(POW);
+    }
+
+
+    "("
+    {
+        return token(LPAREN);
+    }
+
+    ")"
+    {
+        return token(RPAREN);
+    }
+
+    "SQRT"
+    {
+        return token(SQRT);
     }
 
     {integer}
