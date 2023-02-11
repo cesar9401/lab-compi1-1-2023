@@ -1,10 +1,10 @@
 package com.labcompi1.demo1.parser;
 
-class SimpleParser1;
+class Parser;
 
 parser code {:
 
-    public SimpleParser1(SimpleLexer1 lexer) {
+    public Parser(Lexer lexer) {
         super(lexer);
     }
 :}

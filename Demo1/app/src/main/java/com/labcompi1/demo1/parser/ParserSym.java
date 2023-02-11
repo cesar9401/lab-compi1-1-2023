@@ -6,7 +6,7 @@
 package com.labcompi1.demo1.parser;
 
 /** CUP generated class containing symbol constants. */
-public class SimpleParser1Sym {
+public class ParserSym {
   /* terminals */
   public static final int INTEGER = 2;
   public static final int error = 1;

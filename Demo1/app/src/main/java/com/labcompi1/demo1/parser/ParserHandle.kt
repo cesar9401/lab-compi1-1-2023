@@ -7,8 +7,8 @@ class ParserHandle {
     fun compile (input: String): Int? {
         var result: Int? = null;
 
-        val lexer = SimpleLexer1(StringReader(input))
-        val parser = SimpleParser1(lexer);
+        val lexer = Lexer(StringReader(input))
+        val parser = Parser(lexer);
 
         result = parser.parse().value as Int?;
 

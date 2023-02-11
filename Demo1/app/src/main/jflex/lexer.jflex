@@ -1,16 +1,15 @@
 package com.labcompi1.demo1.parser;
 
-import static com.labcompi1.demo1.parser.SimpleParser1Sym.*;
+import static com.labcompi1.demo1.parser.ParserSym.*;
 
 import java_cup.runtime.Symbol;
 
 %%
 
-%class SimpleLexer1
+%class Lexer
 %unicode
 %line
 %column
-// %standalone
 %type java_cup.runtime.Symbol
 %cup
 
@@ -33,7 +32,7 @@ LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator}|[ \t\f]
 
 integer = 0|[1-9][0-9]*
-decimal = {integer}\.\d+
+// decimal = {integer}\.\d+
 // id = [_a-zA-Z][a-zA-Z0-9]*
 
 %%
