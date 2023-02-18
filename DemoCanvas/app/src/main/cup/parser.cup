@@ -1,4 +1,6 @@
-package com.labcompi1.democanvas.parser;
+package com.labcompi1.demo1.parser;
+
+import java.util.ArrayList;
 
 class Parser;
 
@@ -11,6 +13,24 @@ parser code {:
 
 /*
     grammar example:
+
+    graficar circulo (centroX, centroY, radio);
+    graficar cuadrado (posX, posY, lado);
+    graficar rectangulo(posX, posY, alto, ancho);
+
+    mainProd -> mainProd prodGraph
+    mainProd -> prodGraph
+
+    prodGraph -> GRAPH typeFigure prodConf
+
+    typeFigure -> CIRCLE
+    typeFigure -> SQUARE
+    typeFigure -> RECTANGLE
+
+    prodConf -> LPAREN operatorProd RPAREN SEMICOLON
+
+    operatorProd -> operatorProd COMMA a
+    operatorProd -> a
 
     a -> a + b
     a -> a - b
@@ -29,7 +49,45 @@ parser code {:
 
 
 terminal Token PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, INTEGER;
+terminal Token GRAPH, CIRCLE, SQUARE, RECTANGLE, SEMICOLON, COMMA;
 non terminal Integer a, b, c, d;
+non terminal ArrayList<Integer> operatorProd;
+non terminal prodConf, typeFigure, prodGraph, mainProd;
+
+mainProd ::=
+        mainProd prodGraph
+        | prodGraph
+        ;
+
+prodGraph ::=
+        GRAPH typeFigure prodConf
+        ;
+
+typeFigure ::=
+        CIRCLE
+        | SQUARE
+        | RECTANGLE
+        ;
+
+prodConf ::=
+        LPAREN:t1 operatorProd:values RPAREN SEMICOLON
+            {:
+                values.forEach(num -> System.out.println(num));
+            :}
+        ;
+
+operatorProd ::=
+        operatorProd:arreglo COMMA a:num
+            {:
+                 arreglo.add(num);
+                 RESULT = arreglo;
+            :}
+        | a:num
+            {:
+                RESULT = new ArrayList<Integer>();
+                RESULT.add(num);
+            :}
+        ;
 
 a ::=
         a:n1 PLUS b:n2 {: RESULT = n1 + n2; :}

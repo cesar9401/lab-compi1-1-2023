@@ -1,6 +1,6 @@
 package com.labcompi1.demo1.parser;
 
-import static com.labcompi1.democanvas.parser.ParserSym.*;
+import static com.labcompi1.demo1.parser.ParserSym.*;
 
 import java_cup.runtime.Symbol;
 
@@ -34,10 +34,45 @@ WhiteSpace = {LineTerminator}|[ \t\f]
 integer = 0|[1-9][0-9]*
 // decimal = {integer}\.\d+
 // id = [_a-zA-Z][a-zA-Z0-9]*
+/*
+    graficar circulo (centroX, centroY, radio);
+    graficar cuadrado (posX, posY, lado);
+    graficar rectangulo(posX, posY, alto, ancho);
+*/
 
 %%
 
 <YYINITIAL> {
+    "graficar"
+    {
+        return token(GRAPH);
+    }
+
+    "circulo"
+    {
+        return token(CIRCLE);
+    }
+
+    "cuadrado"
+    {
+        return token(SQUARE);
+    }
+
+    "rectangulo"
+    {
+        return token(RECTANGLE);
+    }
+
+    ";"
+    {
+        return token(SEMICOLON);
+    }
+
+    ","
+    {
+        return token(COMMA);
+    }
+
     "+"
     {
         return token(PLUS);
