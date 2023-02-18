@@ -58,12 +58,6 @@ integer = 0|[1-9][0-9]*
         return token(DIVIDE);
     }
 
-    "^"
-    {
-        return token(POW);
-    }
-
-
     "("
     {
         return token(LPAREN);
@@ -72,11 +66,6 @@ integer = 0|[1-9][0-9]*
     ")"
     {
         return token(RPAREN);
-    }
-
-    "SQRT"
-    {
-        return token(SQRT);
     }
 
     {integer}

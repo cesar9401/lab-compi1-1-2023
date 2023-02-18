@@ -18,12 +18,9 @@ parser code {:
 
     b -> b * c
     b -> b / c
-    b -> -c
     b -> c
 
-    c -> d ^ c
-    c -> d ^ - c
-    c -> SQRT LPAREN d RPAREN
+    c -> - d
     c -> d
 
     d -> INTEGER
@@ -31,7 +28,7 @@ parser code {:
 */
 
 
-terminal Token PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, SQRT, POW, INTEGER;
+terminal Token PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, INTEGER;
 non terminal Integer a, b, c, d;
 
 a ::=
@@ -43,14 +40,11 @@ a ::=
 b ::=
         b:n1 TIMES c:n2 {: RESULT = n1 * n2; :}
         | b:n1 DIVIDE c:n2 {: RESULT = n1; :}
-        | MINUS c:n1 {: RESULT = -1 * n1; :}
         | c:n1 {: RESULT = n1; :}
         ;
 
 c ::=
-        d:n1 POW c:n2 {: RESULT = (int) Math.pow(n1, n2); :}
-        | d:n1 POW MINUS c:n2 {: RESULT = (int) Math.pow(n1, -1 * n2); :}
-        | SQRT LPAREN a:n1 RPAREN {: RESULT = (int) Math.sqrt(n1); :}
+        MINUS d:n1 {: RESULT = -1 * n1; :}
         | d:n1 {: RESULT = n1; :}
         ;
 
