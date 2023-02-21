@@ -2,6 +2,15 @@ package com.labcompi1.demo1.parser;
 
 import java.util.ArrayList;
 
+import com.labcompi1.demo1.figure.Circle;
+import com.labcompi1.demo1.figure.Figure;
+import com.labcompi1.demo1.figure.Rectangle;
+import com.labcompi1.demo1.figure.Square;
+import java_cup.Lexer;
+
+
+import java_cup.Lexer;
+
 class Parser;
 
 parser code {:
@@ -14,6 +23,8 @@ parser code {:
 /*
     grammar example:
 
+    graficar circulo (centroX, centroY, radio);
+    graficar rectangulo(posX, posY, alto, ancho);
     graficar circulo (centroX, centroY, radio);
     graficar cuadrado (posX, posY, lado);
     graficar rectangulo(posX, posY, alto, ancho);
@@ -51,28 +62,77 @@ parser code {:
 terminal Token PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, INTEGER;
 terminal Token GRAPH, CIRCLE, SQUARE, RECTANGLE, SEMICOLON, COMMA;
 non terminal Integer a, b, c, d;
-non terminal ArrayList<Integer> operatorProd;
-non terminal prodConf, typeFigure, prodGraph, mainProd;
+non terminal ArrayList<Integer> operatorProd, prodConf;
+non terminal Integer typeFigure;
+non terminal Figure prodGraph;
+non terminal ArrayList<Figure> mainProd;
 
 mainProd ::=
-        mainProd prodGraph
-        | prodGraph
+        mainProd:figures prodGraph:figure
+            {:
+                if (figure != null) {
+                    figures.add(figure);
+                    RESULT = figures;
+                }
+            :}
+        | prodGraph:figure
+            {:
+                RESULT = new ArrayList<Figure>();
+                if (figure != null) {
+                    RESULT.add(figure);
+                }
+            :}
         ;
 
 prodGraph ::=
-        GRAPH typeFigure prodConf
+        GRAPH:token typeFigure:type prodConf:arreglo
+            {:
+                if (type == ParserSym.CIRCLE) {
+                    // TODO: crear circulo
+                    if (arreglo.size() != 3) {
+                        System.out.println("Error al construir ciculo: " + arreglo);
+                        return null;
+                    }
+
+                    RESULT = new Circle(token, arreglo.get(0), arreglo.get(1), arreglo.get(2));
+
+                } else if (type == ParserSym.SQUARE) {
+                    // TODO: crear cuadrado
+
+                   if (arreglo.size() != 3) {
+                        System.out.println("Error al construir cuadrado: " + arreglo);
+                        return null;
+                   }
+
+                    RESULT = new Square(token, arreglo.get(0), arreglo.get(1), arreglo.get(2));
+
+                } else if (type == ParserSym.RECTANGLE) {
+                    // TODO: crear rectangulo
+                    if (arreglo.size() != 4) {
+                        System.out.println("Error al construir rectangulo: " + arreglo);
+                        return null;
+                    }
+
+                    RESULT = new Rectangle(token, arreglo.get(0), arreglo.get(1), arreglo.get(2), arreglo.get(3));
+
+                }  else {
+                    // TODO: return something
+                    RESULT = null;
+                }
+            :}
         ;
 
 typeFigure ::=
-        CIRCLE
-        | SQUARE
-        | RECTANGLE
+        CIRCLE {: RESULT = ParserSym.CIRCLE; :}
+        | SQUARE {: RESULT = ParserSym.SQUARE; :}
+        | RECTANGLE {: RESULT = ParserSym.RECTANGLE; :}
         ;
 
 prodConf ::=
-        LPAREN:t1 operatorProd:values RPAREN SEMICOLON
+        LPAREN operatorProd:values RPAREN SEMICOLON
             {:
-                values.forEach(num -> System.out.println(num));
+                System.out.println("Devolviendo arreglo: " + values);
+                RESULT = values;
             :}
         ;
 

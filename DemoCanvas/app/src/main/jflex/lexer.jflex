@@ -34,6 +34,7 @@ WhiteSpace = {LineTerminator}|[ \t\f]
 integer = 0|[1-9][0-9]*
 // decimal = {integer}\.\d+
 // id = [_a-zA-Z][a-zA-Z0-9]*
+
 /*
     graficar circulo (centroX, centroY, radio);
     graficar cuadrado (posX, posY, lado);

@@ -6,6 +6,12 @@
 package com.labcompi1.demo1.parser;
 
 import java.util.ArrayList;
+import com.labcompi1.demo1.figure.Circle;
+import com.labcompi1.demo1.figure.Figure;
+import com.labcompi1.demo1.figure.Rectangle;
+import com.labcompi1.demo1.figure.Square;
+import java_cup.Lexer;
+import java_cup.Lexer;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -168,8 +174,19 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 0: // mainProd ::= mainProd prodGraph 
             {
-              Object RESULT =null;
-
+              ArrayList<Figure> RESULT =null;
+		int figuresleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int figuresright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		ArrayList<Figure> figures = (ArrayList<Figure>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int figureleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int figureright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Figure figure = (Figure)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+                if (figure != null) {
+                    figures.add(figure);
+                    RESULT = figures;
+                }
+            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("mainProd",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -180,7 +197,7 @@ class CUP$Parser$actions {
               Object RESULT =null;
 		int start_valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int start_valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		ArrayList<Figure> start_val = (ArrayList<Figure>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		RESULT = start_val;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -191,8 +208,16 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 2: // mainProd ::= prodGraph 
             {
-              Object RESULT =null;
-
+              ArrayList<Figure> RESULT =null;
+		int figureleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int figureright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Figure figure = (Figure)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+                RESULT = new ArrayList<Figure>();
+                if (figure != null) {
+                    RESULT.add(figure);
+                }
+            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("mainProd",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -200,8 +225,50 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 3: // prodGraph ::= GRAPH typeFigure prodConf 
             {
-              Object RESULT =null;
+              Figure RESULT =null;
+		int tokenleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tokenright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Token token = (Token)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int typeleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Integer type = (Integer)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int arregloleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int arregloright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		ArrayList<Integer> arreglo = (ArrayList<Integer>)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+                if (type == ParserSym.CIRCLE) {
+                    // TODO: crear circulo
+                    if (arreglo.size() != 3) {
+                        System.out.println("Error al construir ciculo: " + arreglo);
+                        return null;
+                    }
 
+                    RESULT = new Circle(token, arreglo.get(0), arreglo.get(1), arreglo.get(2));
+
+                } else if (type == ParserSym.SQUARE) {
+                    // TODO: crear cuadrado
+
+                   if (arreglo.size() != 3) {
+                        System.out.println("Error al construir cuadrado: " + arreglo);
+                        return null;
+                   }
+
+                    RESULT = new Square(token, arreglo.get(0), arreglo.get(1), arreglo.get(2));
+
+                } else if (type == ParserSym.RECTANGLE) {
+                    // TODO: crear rectangulo
+                    if (arreglo.size() != 4) {
+                        System.out.println("Error al construir rectangulo: " + arreglo);
+                        return null;
+                    }
+
+                    RESULT = new Rectangle(token, arreglo.get(0), arreglo.get(1), arreglo.get(2), arreglo.get(3));
+
+                }  else {
+                    // TODO: return something
+                    RESULT = null;
+                }
+            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("prodGraph",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -209,8 +276,8 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // typeFigure ::= CIRCLE 
             {
-              Object RESULT =null;
-
+              Integer RESULT =null;
+		 RESULT = ParserSym.CIRCLE; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("typeFigure",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -218,8 +285,8 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // typeFigure ::= SQUARE 
             {
-              Object RESULT =null;
-
+              Integer RESULT =null;
+		 RESULT = ParserSym.SQUARE; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("typeFigure",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -227,8 +294,8 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 6: // typeFigure ::= RECTANGLE 
             {
-              Object RESULT =null;
-
+              Integer RESULT =null;
+		 RESULT = ParserSym.RECTANGLE; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("typeFigure",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -236,15 +303,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // prodConf ::= LPAREN operatorProd RPAREN SEMICOLON 
             {
-              Object RESULT =null;
-		int t1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
-		int t1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		Token t1 = (Token)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+              ArrayList<Integer> RESULT =null;
 		int valuesleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int valuesright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		ArrayList<Integer> values = (ArrayList<Integer>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
-                values.forEach(num -> System.out.println(num));
+                System.out.println("Devolviendo arreglo: " + values);
+                RESULT = values;
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("prodConf",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
