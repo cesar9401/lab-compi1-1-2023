@@ -1,0 +1,74 @@
+package com.labcompi1.demo1.parser;
+
+import java.util.ArrayList;
+
+class Parser;
+
+parser code {:
+
+    public Parser(Lexer lexer) {
+        super(lexer);
+    }
+:}
+
+/*
+    grammar example:
+
+    a -> a + b
+    a -> a - b
+    a -> b
+
+    b -> b * c
+    b -> b / c
+    b -> -c
+    b -> c
+
+    c -> d ^ c
+    c -> d ^ - c
+    c -> SQRT LPAREN a RPAREN
+    c -> d
+
+    d -> INTEGER
+    d -> DECIMAL
+    d -> LPAREN a RPAREN
+*/
+
+terminal Token PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, SQRT, POW, INTEGER;
+terminal Token DECIMAL, SEMICOLON;
+non terminal Double a, b, c, d, operation;
+non terminal ArrayList<Double> operations;
+
+operations ::=
+        operations:list operation:n1 {: list.add(n1); RESULT = list; :}
+        | operation:n1 {: RESULT = new ArrayList<Double>(); RESULT.add(n1); :}
+        ;
+
+operation ::=
+        a:n1 SEMICOLON {: RESULT = n1; :}
+        ;
+
+a ::=
+        a:n1 PLUS b:n2 {: RESULT = n1 + n2; :}
+        | a:n1 MINUS b:n2 {: RESULT = n1 - n2; :}
+        | b:n1 {: RESULT = n1; :}
+        ;
+
+b ::=
+        b:n1 TIMES c:n2 {: RESULT = n1 * n2; :}
+        | b:n1 DIVIDE c:n2 {: RESULT = n1 / n2; :}
+        | MINUS c:n1 {: RESULT = -1 * n1; :}
+        | c:n1 {: RESULT = n1; :}
+        ;
+
+c ::=
+        d:n1 POW c:n2 {: RESULT = Math.pow(n1, n2); :}
+        | d:n1 POW MINUS c:n2 {: RESULT = Math.pow(n1, -1 * n2); :}
+        | SQRT LPAREN a:n1 RPAREN {: RESULT = Math.sqrt(n1); :}
+        | d:n1 {: RESULT = n1; :}
+        ;
+
+d ::=
+        INTEGER:n1 {: RESULT = Double.valueOf(n1.getValue()); :}
+        | DECIMAL:n1 {: RESULT = Double.valueOf(n1.getValue()); :}
+        | LPAREN a:n1 RPAREN {: RESULT = n1; :}
+        ;
