@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
+import com.labcompi1.demo1.figure.Figure
+import com.labcompi1.demo1.parser.ParserHandle
 
 class DrawActivity : AppCompatActivity() {
     var input: String = "";
@@ -23,11 +25,24 @@ class DrawActivity : AppCompatActivity() {
         val bundle = intent.extras
         if (bundle != null) {
             this.input = bundle.getSerializable("input", String::class.java).toString()
+            val figures = compile(input)
+            if (figures != null) {
+                val panel = DrawPanel(this, figures)
+                drawLayout.addView(panel)
+            } else {
+                println("Something went wrong")
+            }
         }
 
         buttonBack.setOnClickListener(View.OnClickListener {
             goToMainActivity()
         })
+    }
+
+    private fun compile(input: String): ArrayList<Figure>? {
+        val parserHandle = ParserHandle();
+        val result = parserHandle.compile(input)
+        return result
     }
 
     private fun goToMainActivity() {

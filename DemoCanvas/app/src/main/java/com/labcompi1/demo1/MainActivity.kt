@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+import com.labcompi1.demo1.figure.Figure
 import com.labcompi1.demo1.parser.ParserHandle
 
 class MainActivity : AppCompatActivity() {
@@ -28,14 +29,8 @@ class MainActivity : AppCompatActivity() {
         compileButton.setOnClickListener(View.OnClickListener {
             Log.println(Log.INFO, TAG, "Compiling")
             this.input = editor.text.toString()
-            val output = this.compile(input);
 
-            if (output != null) {
-                Log.println(Log.INFO, TAG, "The result is $output")
-                goToDrawActivity(input)
-            } else {
-                Log.println(Log.ERROR, TAG, "Something went wrong")
-            }
+            goToDrawActivity(input)
         })
 
         backspaceButton.setOnClickListener(View.OnClickListener {
@@ -50,16 +45,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun compile(input: String): Int? {
-        val parserHandle = ParserHandle();
-        val result = parserHandle.compile(input)
-        return result
-    }
-
     private fun goToDrawActivity(input: String) {
         val intent = Intent(this, DrawActivity::class.java)
         val bundle = Bundle()
-        bundle.putSerializable("input", input);
+        bundle.putSerializable("input", input)
         intent.putExtras(bundle)
         startActivity(intent)
     }

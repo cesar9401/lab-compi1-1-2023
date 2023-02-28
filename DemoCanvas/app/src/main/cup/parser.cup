@@ -72,8 +72,8 @@ mainProd ::=
             {:
                 if (figure != null) {
                     figures.add(figure);
-                    RESULT = figures;
                 }
+                RESULT = figures;
             :}
         | prodGraph:figure
             {:

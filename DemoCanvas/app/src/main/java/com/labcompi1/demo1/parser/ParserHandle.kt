@@ -5,18 +5,18 @@ import java.io.StringReader
 
 class ParserHandle {
 
-    fun compile (input: String): Int? {
+    fun compile (input: String): ArrayList<Figure>? {
         val lexer = Lexer(StringReader(input))
         val parser = Parser(lexer)
 
-        val figures: ArrayList<Figure>? = parser.parse().value as ArrayList<Figure>?;
+        var figures: ArrayList<Figure>? = ArrayList<Figure>()
 
-        if (figures != null) {
-            figures.forEach {
-                println(it)
-            }
+        figures = parser.parse().value as ArrayList<Figure>?;
+
+        figures?.forEach {
+            println(it)
         }
 
-        return 0;
+        return figures;
     }
 }

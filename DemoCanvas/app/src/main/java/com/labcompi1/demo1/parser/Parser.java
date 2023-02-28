@@ -184,8 +184,8 @@ class CUP$Parser$actions {
 		
                 if (figure != null) {
                     figures.add(figure);
-                    RESULT = figures;
                 }
+                RESULT = figures;
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("mainProd",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
