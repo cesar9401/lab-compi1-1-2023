@@ -31,6 +31,10 @@ parser code {:
     d -> INTEGER
     d -> DECIMAL
     d -> LPAREN a RPAREN
+
+    // example
+
+    12 * 2; 45 / 5 + sqrt(16);
 */
 
 terminal Token PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, SQRT, POW, INTEGER;

@@ -33,7 +33,7 @@ WhiteSpace = {LineTerminator}|[ \t\f]
 
 integer = 0|[1-9][0-9]*
 decimal = {integer}\.\d+
-// id = [_a-zA-Z][a-zA-Z0-9]*
+sym = [&!@#$%_\[\]\{\}\|:'\"<>\?a-zA-Z\\]+
 
 %%
 
@@ -95,6 +95,11 @@ decimal = {integer}\.\d+
 
     {WhiteSpace}
     { /* Ignorar */ }
+
+    {sym}
+    {
+        System.out.println("Finding something else: <" + yytext() + ">");
+    }
 }
 
 [^]

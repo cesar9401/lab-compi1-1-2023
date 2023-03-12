@@ -10,8 +10,13 @@ class ParserHandle {
         val lexer = Lexer(StringReader(input))
         val parser = Parser(lexer);
 
-        result = parser.parse().value as ArrayList<Double>?
+        try {
+            result = parser.parse().value as ArrayList<Double>?
+            return result;
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace(System.out)
+        }
 
-        return result;
+        return ArrayList<Double>()
     }
 }
