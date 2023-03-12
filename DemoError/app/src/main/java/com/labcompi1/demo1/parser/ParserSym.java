@@ -16,6 +16,7 @@ public class ParserSym {
   public static final int EOF = 0;
   public static final int PLUS = 2;
   public static final int error = 1;
+  public static final int SYM = 13;
   public static final int SEMICOLON = 12;
   public static final int RPAREN = 7;
   public static final int SQRT = 8;
@@ -34,7 +35,8 @@ public class ParserSym {
   "POW",
   "INTEGER",
   "DECIMAL",
-  "SEMICOLON"
+  "SEMICOLON",
+  "SYM"
   };
 }
 

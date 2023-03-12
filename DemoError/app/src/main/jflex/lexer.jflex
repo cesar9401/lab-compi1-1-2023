@@ -99,6 +99,7 @@ sym = [&!@#$%_\[\]\{\}\|:'\"<>\?a-zA-Z\\]+
     {sym}
     {
         System.out.println("Finding something else: <" + yytext() + ">");
+        return token(SYM, yytext());
     }
 }
 

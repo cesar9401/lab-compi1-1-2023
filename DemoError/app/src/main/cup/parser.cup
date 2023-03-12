@@ -2,12 +2,33 @@ package com.labcompi1.demo1.parser;
 
 import java.util.ArrayList;
 
+import java_cup.runtime.Symbol;
+
 class Parser;
 
 parser code {:
 
     public Parser(Lexer lexer) {
         super(lexer);
+    }
+
+    public Symbol scan() throws Exception {
+        Symbol sym = this.getScanner().next_token();
+        if (sym == null) {
+            return this.getSymbolFactory().newSymbol("END_OF_FILE", this.EOF_sym());
+        }
+
+        while(sym != null && sym.sym == ParserSym.SYM) {
+            this.report_expected_token_ids();
+            System.out.println("Ingorando: " + sym.value.toString());
+            sym = this.getScanner().next_token();
+        }
+
+        if (sym == null) {
+            return this.getSymbolFactory().newSymbol("END_OF_FILE", this.EOF_sym());
+        }
+
+        return sym;
     }
 :}
 
@@ -39,6 +60,7 @@ parser code {:
 
 terminal Token PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, SQRT, POW, INTEGER;
 terminal Token DECIMAL, SEMICOLON;
+terminal Token SYM;
 non terminal Double a, b, c, d, operation;
 non terminal ArrayList<Double> operations;
 
@@ -49,6 +71,12 @@ operations ::=
 
 operation ::=
         a:n1 SEMICOLON {: RESULT = n1; :}
+        | error SEMICOLON
+            {:
+                // TODO: handle the error
+                System.out.println("Got an error");
+                RESULT = 0D;
+            :}
         ;
 
 a ::=
