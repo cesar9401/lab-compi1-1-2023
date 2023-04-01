@@ -7,8 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "calculadora": "jison src/app/parser/calculadora/calculadora.jison -o src/app/parser/calculadora/calculadora.js",
-    "calculadora2": "jison src/app/parser/calculadora2/calculadora2.jison -o src/app/parser/calculadora2/calculadora2.js"
+    "parser": "jison src/app/parser/parser.jison -o src/app/parser/parser.js"
   },
   "private": true,
   "dependencies": {

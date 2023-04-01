@@ -28,8 +28,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/app/parser/calculadora/calculadora.js",
-              "src/app/parser/calculadora2/calculadora2.js"
+              "src/app/parser/parser.js"
             ]
           },
           "configurations": {

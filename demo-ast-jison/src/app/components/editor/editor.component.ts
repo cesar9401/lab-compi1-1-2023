@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CodeModel } from "@ngstack/code-editor";
 
-// declare var calculadora: any;
-declare var calculadora2: any;
+declare var parser: any;
 
 @Component({
   selector: 'app-editor',
@@ -14,8 +13,8 @@ export class EditorComponent implements OnInit{
   result = '';
 
   codeModel: CodeModel = {
-    language: 'javascript',
-    uri: 'main.js',
+    language: 'java',
+    uri: 'Main.java',
     value: ''
   };
 
@@ -29,7 +28,7 @@ export class EditorComponent implements OnInit{
 
   onCompile() {
     try {
-      const value = calculadora2.parse(this.codeModel.value);
+      const value = parser.parse(this.codeModel.value);
       this.result = `El resultado es: ${value}`;
     } catch(error) {
       console.error(error);
