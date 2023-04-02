@@ -6,5 +6,6 @@ export class Variable {
 
 export enum VariableType {
   INTEGER,
-  DOUBLE
+  DOUBLE,
+  BOOLEAN
 }

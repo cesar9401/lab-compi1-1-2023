@@ -84,7 +84,79 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
- return 0; 
+ return $$[$0-1]; 
+break;
+case 2:
+ this.$ = $$[$0-1]; this.$.push($$[$0]); 
+break;
+case 3:
+ this.$ = []; 
+break;
+case 4: case 5: case 6: case 7: case 15: case 17: case 22: case 25: case 29: case 32: case 34:
+ this.$ = $$[$0]; 
+break;
+case 8:
+ this.$ = new yy.While(this._$.first_line, this._$.first_column, $$[$0-4], $$[$0-1]); 
+break;
+case 9:
+ this.$ = new yy.Print(this._$.first_line, this._$.first_column, $$[$0-2]); 
+break;
+case 10:
+ this.$ = new yy.Assignment(this._$.first_line, this._$.first_column, $$[$0-3], $$[$0-1]); 
+break;
+case 11:
+ this.$ = new yy.Declaration(this._$.first_line, this._$.first_column, $$[$0-4], $$[$0-3], $$[$0-1]); 
+break;
+case 12:
+ this.$ = yy.VariableType.INTEGER; 
+break;
+case 13:
+ this.$ = yy.VariableType.DOUBLE; 
+break;
+case 14:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.OR, $$[$0-2], $$[$0]); 
+break;
+case 16:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.AND, $$[$0-2], $$[$0]); 
+break;
+case 18:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.GREATER, $$[$0-2], $$[$0]); 
+break;
+case 19:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.LESS, $$[$0-2], $$[$0]); 
+break;
+case 20:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.EQEQ, $$[$0-2], $$[$0]); 
+break;
+case 21:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.NEQ, $$[$0-2], $$[$0]); 
+break;
+case 23:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.PLUS, $$[$0-2], $$[$0]); 
+break;
+case 24:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.MINUS, $$[$0-2], $$[$0]); 
+break;
+case 26:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.TIMES, $$[$0-2], $$[$0]); 
+break;
+case 27:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.DIVIDE, $$[$0-2], $$[$0]); 
+break;
+case 28:
+ this.$ = new yy.BinaryOperation(this._$.first_line, this._$.first_column, yy.OperationType.MOD, $$[$0-2], $$[$0]); 
+break;
+case 35:
+ this.$ = new yy.Value(this._$.first_line, this._$.first_column, $$[$0], yy.ValueType.DECIMAL); 
+break;
+case 36:
+ this.$ = new yy.Value(this._$.first_line, this._$.first_column, $$[$0], yy.ValueType.INTEGER); 
+break;
+case 37:
+ this.$ = new yy.Value(this._$.first_line, this._$.first_column, $$[$0], yy.ValueType.ID); 
+break;
+case 38:
+ this.$ = $$[$0-1]; 
 break;
 }
 },

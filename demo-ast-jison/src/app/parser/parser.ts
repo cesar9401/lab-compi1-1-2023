@@ -27,15 +27,17 @@ export class Parser {
     parser.yy.VariableType = VariableType;
     parser.yy.OperationType = OperationType;
     parser.yy.Value = Value;
-    parser.yy.valueType = ValueType;
-
-    console.log(parser);
+    parser.yy.ValueType = ValueType;
   }
 
   parse() {
     try {
-      parser.parse(this.source);
-      console.log('success');
+      this.instructions = parser.parse(this.source);
+
+      const table = new SymbolTable();
+      this.instructions.forEach(i => {
+        i.run(table);
+      });
     } catch(error) {
       console.error(error);
     }
