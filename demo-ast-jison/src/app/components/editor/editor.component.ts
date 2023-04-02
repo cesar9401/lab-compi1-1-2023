@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CodeModel } from "@ngstack/code-editor";
+import { Parser } from "src/app/parser/parser";
 
 declare var parser: any;
 
@@ -27,13 +28,8 @@ export class EditorComponent implements OnInit{
   };
 
   onCompile() {
-    try {
-      const value = parser.parse(this.codeModel.value);
-      this.result = `El resultado es: ${value}`;
-    } catch(error) {
-      console.error(error);
-      this.result = 'Algo salio mal :(';
-    }
+    const parser = new Parser(this.codeModel.value);
+    parser.parse();
   }
 
   ngOnInit(): void {
