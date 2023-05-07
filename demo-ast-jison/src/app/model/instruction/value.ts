@@ -1,6 +1,7 @@
-import { Instruction } from "src/app/model/instruction";
-import { SymbolTable } from "src/app/model/symbol-table";
-import { Variable, VariableType } from "src/app/model/variable";
+import { Instruction } from "src/app/model/instruction/instruction";
+import { SymbolTable } from "src/app/model/instruction/symbol-table";
+import { Variable, VariableType } from "src/app/model/instruction/variable";
+import { Visitor } from "src/app/model/visitor/visitor";
 
 export class Value extends Instruction {
   value: any;
@@ -38,6 +39,10 @@ export class Value extends Instruction {
     }
 
     return undefined;
+  }
+
+  accept(v: Visitor): any {
+    return v.visitValue(this);
   }
 }
 

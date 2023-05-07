@@ -1,6 +1,7 @@
-import { Instruction } from "src/app/model/instruction";
-import { SymbolTable } from "src/app/model/symbol-table";
-import { Variable, VariableType } from "src/app/model/variable";
+import { Instruction } from "src/app/model/instruction/instruction";
+import { SymbolTable } from "src/app/model/instruction/symbol-table";
+import { Variable, VariableType } from "src/app/model/instruction/variable";
+import { Visitor } from "src/app/model/visitor/visitor";
 
 export class Declaration extends Instruction {
   type: VariableType;
@@ -36,5 +37,9 @@ export class Declaration extends Instruction {
     Object.assign(val1, operation);
     val1.id = this.id;
     table.add(val1);
+  }
+
+  accept(v: Visitor): any {
+    return v.visitDeclaration(this);
   }
 }

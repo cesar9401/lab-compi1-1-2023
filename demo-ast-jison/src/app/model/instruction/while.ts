@@ -1,6 +1,7 @@
-import { Instruction } from "src/app/model/instruction";
-import { SymbolTable } from "src/app/model/symbol-table";
-import { Variable } from "src/app/model/variable";
+import { Instruction } from "src/app/model/instruction/instruction";
+import { SymbolTable } from "src/app/model/instruction/symbol-table";
+import { Variable } from "src/app/model/instruction/variable";
+import { Visitor } from "src/app/model/visitor/visitor";
 
 export class While extends Instruction {
   operation: Instruction;
@@ -36,5 +37,9 @@ export class While extends Instruction {
         throw new Error("error verificando condicion");
       }
     }
+  }
+
+  accept(v: Visitor): any {
+    return v.visitWhile(this);
   }
 }

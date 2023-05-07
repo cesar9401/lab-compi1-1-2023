@@ -1,4 +1,4 @@
-import { Variable } from "src/app/model/variable";
+import { Variable } from "src/app/model/instruction/variable";
 
 export class SymbolTable extends Array<Variable> {
 

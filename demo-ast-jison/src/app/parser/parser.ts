@@ -1,13 +1,15 @@
-import { Assignment } from "src/app/model/assignment";
-import { BinaryOperation } from "src/app/model/binary-operation";
-import { Declaration } from "src/app/model/declaration";
-import { Instruction } from "src/app/model/instruction";
-import { OperationType } from "src/app/model/operation-type";
-import { Print } from "src/app/model/print";
-import { SymbolTable } from "src/app/model/symbol-table";
-import { Value, ValueType } from "src/app/model/value";
-import { Variable, VariableType } from "src/app/model/variable";
-import { While } from "src/app/model/while";
+import { Assignment } from "src/app/model/instruction/assignment";
+import { BinaryOperation } from "src/app/model/instruction/binary-operation";
+import { Declaration } from "src/app/model/instruction/declaration";
+import { Instruction } from "src/app/model/instruction/instruction";
+import { OperationType } from "src/app/model/instruction/operation-type";
+import { Print } from "src/app/model/instruction/print";
+import { SymbolTable } from "src/app/model/instruction/symbol-table";
+import { Value, ValueType } from "src/app/model/instruction/value";
+import { Variable, VariableType } from "src/app/model/instruction/variable";
+import { While } from "src/app/model/instruction/while";
+import { Runner } from "src/app/model/visitor/runner";
+import { Runner2 } from "src/app/model/visitor/runner2";
 
 declare var parser: any;
 
@@ -33,10 +35,15 @@ export class Parser {
   parse() {
     try {
       this.instructions = parser.parse(this.source);
-
       const table = new SymbolTable();
+
+      const runner = new Runner();
+      const runner2 = new Runner2();
+      runner.symbolTable = table;
+
       this.instructions.forEach(i => {
-        i.run(table);
+        // i.run(table);
+        i.accept(runner);
       });
     } catch(error) {
       console.error(error);

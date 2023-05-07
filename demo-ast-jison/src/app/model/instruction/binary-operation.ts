@@ -1,7 +1,8 @@
-import { Instruction } from "src/app/model/instruction";
-import { OperationType } from "src/app/model/operation-type";
-import { SymbolTable } from "src/app/model/symbol-table";
-import { Variable, VariableType } from "src/app/model/variable";
+import { Instruction } from "src/app/model/instruction/instruction";
+import { OperationType } from "src/app/model/instruction/operation-type";
+import { SymbolTable } from "src/app/model/instruction/symbol-table";
+import { Variable, VariableType } from "src/app/model/instruction/variable";
+import { Visitor } from "src/app/model/visitor/visitor";
 
 export class BinaryOperation extends Instruction {
   type: OperationType;
@@ -78,5 +79,9 @@ export class BinaryOperation extends Instruction {
       }
     }
     throw new Error("Error en alguna operación");
+  }
+
+  accept(v: Visitor): any {
+    return v.visitBinaryOperation(this);
   }
 }

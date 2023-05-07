@@ -1,6 +1,7 @@
-import { Instruction } from "src/app/model/instruction";
-import { SymbolTable } from "src/app/model/symbol-table";
-import { Variable, VariableType } from "src/app/model/variable";
+import { Instruction } from "src/app/model/instruction/instruction";
+import { SymbolTable } from "src/app/model/instruction/symbol-table";
+import { Variable, VariableType } from "src/app/model/instruction/variable";
+import { Visitor } from "src/app/model/visitor/visitor";
 
 export class Assignment extends Instruction {
   id: string;
@@ -35,5 +36,9 @@ export class Assignment extends Instruction {
     } else {
       variable1.value = Math.floor(variable.value)
     }
+  }
+
+  accept(v: Visitor): any {
+    return v.visitAssignment(this);
   }
 }
